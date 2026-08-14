@@ -1,3 +1,3 @@
 # THM Vault
 
-Meus writeups anormais para estudo
+Just some cyber notes to remember how i am dumb sometimes
