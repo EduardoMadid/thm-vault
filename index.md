@@ -2,6 +2,9 @@
 title: THM Vault
 ---
 
-# Just writing some random stuff lol
+<meta http-equiv="refresh" content="0; url=/cyber-notes/boot/">
 
-Use the search or the graph to navigate between the randomness ;)
+<script>window.location.href = "/cyber-notes/boot/";</script>
+
+Redirecting to boot sequence... if nothing happens, [click here](/cyber-notes/boot/).
+
