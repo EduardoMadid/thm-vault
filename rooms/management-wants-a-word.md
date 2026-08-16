@@ -1,7 +1,13 @@
 ---
 title: management-wants-a-word
-tags: [dfir, windows, forensics, tryhackme, hacker-holidays]
+tags:
+  - dfir
+  - windows
+  - forensics
+  - tryhackme
+  - hacker-holidays
 difficulty: hard
+platform: TryHackMe
 ---
 
 # Management Wants a Word
