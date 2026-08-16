@@ -10,6 +10,7 @@ tags:
 platform: TryHackMe
 difficulty: medium
 status: complete
+title: support
 ---
 
 # Support Operations Platform
@@ -107,7 +108,7 @@ if (($_COOKIE['isITUser'] ?? md5('false')) !== md5('true')) { die('Access denied
 
 The same file also shows the `include('/var/www/db.php')` and the `$id = $_GET['id']` line that make the IDOR in the next section possible.
 
-
+See [[techniques/client-side-role-cookie|client-side-role-cookie]] for the general technique.
 ## 4. Internal User API: IDOR
 
 The API lets a user query their own profile at `/user/3`, returning JSON with `email`, `2FA`, and `admin` fields. My own profile shows `admin: false`, so the cookie only unlocked the API surface; real admin is decided by a separate per-user field.
@@ -137,7 +138,7 @@ Signing in with the admin credentials gave me administrator access and the first
 
 **Admin flag:** `THM{I_AM_ADMIN999}`
 
-
+Full breakdown in [[techniques/path-traversal-source-disclosure|path-traversal-source-disclosure]].
 ## 6. Remote Code Execution: command injection
 
 The admin dashboard has a diagnostics feature that displays the date/time. Inspecting the request in DevTools showed it sends the **raw shell command** in a `sys` parameter (`sys=date +"%H:%M:%S"`), POSTed to `dashboard.php`. The backend executes whatever string I supply.
@@ -170,7 +171,7 @@ sys=date|cat /home/ubuntu/user.txt
 
 The core objective of this room is to achieve Remote Code Execution on the server, which this command injection delivers.
 
-
+See [[techniques/os-command-injection|os-command-injection]].
 ## Security findings summary
 
 | # | Finding | Impact |
@@ -187,3 +188,8 @@ The core objective of this room is to achieve Remote Code Execution on the serve
 ## Kill chain
 
 Recon (nmap, gobuster, phpinfo) → weak login (`ffuf` + rockyou) → forge `isITUser = md5("true")` (broken access control) → LFI via `?skin=../config` / `../api` → admin login → **flag 1** → command injection via `sys` (dump `db.php`, read `user.txt`) → **flag 2**.
+
+## 🔗 Techniques used
+- [[techniques/client-side-role-cookie|client-side-role-cookie]]
+- [[techniques/path-traversal-source-disclosure|path-traversal-source-disclosure]]
+- [[techniques/os-command-injection|os-command-injection]]
