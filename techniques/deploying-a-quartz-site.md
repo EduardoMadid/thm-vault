@@ -8,6 +8,7 @@ tags:
   - ssh
   - bash
   - automation
+  - tech
 ---
 
 # Deploying a Quartz site with Git & GitHub Actions

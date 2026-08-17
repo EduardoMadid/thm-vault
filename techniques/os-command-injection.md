@@ -1,6 +1,11 @@
 ---
 title: os-command-injection
-tags: [web, rce, command-injection, php]
+tags:
+  - web
+  - rce
+  - command-injection
+  - php
+  - tech
 ---
 
 # OS command injection (command-carrying parameter)

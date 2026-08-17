@@ -6,6 +6,7 @@ tags:
   - forensics
   - tryhackme
   - hacker-holidays
+  - room
 difficulty: hard
 platform: TryHackMe
 ---
