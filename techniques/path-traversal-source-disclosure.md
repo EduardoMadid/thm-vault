@@ -1,12 +1,12 @@
 ---
 title: path-traversal-source-disclosure
 tags:
+  - tech
   - web
   - lfi
   - path-traversal
   - info-disclosure
   - php
-  - tech
 ---
 
 # Path traversal source disclosure

@@ -1,11 +1,11 @@
 ---
 title: dpapi-chain
 tags:
+  - tech
   - dfir
   - windows
   - credentials
   - dpapi
-  - tech
 ---
 
 # DPAPI credential chain

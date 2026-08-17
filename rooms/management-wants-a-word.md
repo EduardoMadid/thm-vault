@@ -1,14 +1,14 @@
 ---
 title: management-wants-a-word
 tags:
+  - room
   - dfir
   - windows
   - forensics
   - tryhackme
   - hacker-holidays
-  - room
-difficulty: hard
 platform: TryHackMe
+difficulty: hard
 ---
 
 # Management Wants a Word

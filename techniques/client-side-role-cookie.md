@@ -1,12 +1,12 @@
 ---
 title: client-side-role-cookie
 tags:
+  - tech
   - web
   - access-control
   - authorization
   - cookies
   - broken-access-control
-  - tech
 ---
 
 # Client-side role cookie (forgeable authorization)

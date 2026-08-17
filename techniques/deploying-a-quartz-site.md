@@ -1,6 +1,7 @@
 ---
 title: deploying-a-quartz-site
 tags:
+  - tech
   - devops
   - git
   - github-actions
@@ -8,7 +9,6 @@ tags:
   - ssh
   - bash
   - automation
-  - tech
 ---
 
 # Deploying a Quartz site with Git & GitHub Actions

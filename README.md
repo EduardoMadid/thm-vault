@@ -1,3 +1,3 @@
-# THM Vault
+# MyKnowledgeVault
 
-Just some cyber notes to remember how i am dumb sometimes
+Just some general notes about everything

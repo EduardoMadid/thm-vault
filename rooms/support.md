@@ -1,4 +1,5 @@
 ---
+title: support
 tags:
   - room
   - web
@@ -9,8 +10,6 @@ tags:
   - command-injection
 platform: TryHackMe
 difficulty: medium
-status: complete
-title: support
 ---
 
 # Support Operations Platform
