@@ -1,6 +1,13 @@
 ---
 title: deploying-a-quartz-site
-tags: [devops, git, github-actions, ci-cd, ssh]
+tags:
+  - devops
+  - git
+  - github-actions
+  - ci-cd
+  - ssh
+  - bash
+  - automation
 ---
 
 # Deploying a Quartz site with Git & GitHub Actions
@@ -47,3 +54,25 @@ Key concepts learned:
 
 ## 🧠 Insight
 The "separate repos" approach costs you a more complex Action but keeps content clean from tooling. The Action *is* the glue — everything hard lives in ~40 lines of YAML, and once it's right, the whole thing runs itself.
+
+The deploy script is the same idea one layer up: the Action automates the *build*, the script automates the *push*. Both replace a fragile manual ritual with something that runs itself but I kept a confirmation prompt in the script, because fully automating a `git push` across two repos is exactly how you publish a mistake at 2am.
+
+## Automating the deploy
+
+Two repos means two `add`/`commit`/`push` cycles every time I publish, plus remembering that a content push needs a manual engine rebuild. I wrote a bash script to collapse all of that into one command:
+
+```bash
+./deploy.sh "commit message"            # normal: commits real changes in both repos
+./deploy.sh "commit message" --rebuild  # quartz gets an empty commit to force a rebuild
+```
+
+The script deploys the vault first (content), then the quartz repo (engine), asking for confirmation before each push so I can eyeball `git status` before anything goes up. The `--rebuild` flag switches the quartz side to an empty commit — the exact trick from the gotcha above, now automated.
+
+Design decisions worth noting:
+- **Guard clause first** — bails out immediately if no commit message is passed, so nothing half-runs.
+- **A `--rebuild` boolean** captured once at the top, used later — separates *deciding* from *acting*.
+- **`commit_if_changes`** — checks `git diff --quiet` before committing so an empty "nothing to commit" doesn't abort the run; only pushes if a commit actually happened. The `--rebuild` branch deliberately skips this, since an empty commit is the whole point there.
+- **Confirmation prompts** — `git status` + a `read` before each push. The trade-off for automation is losing the "inventory before touching" ritual, so the prompt puts it back.
+- **`cd ... || { echo; exit; }`** — if a repo folder is missing, it says so and stops instead of running git in the wrong place.
+
+Testing discipline: I swapped every `git push` for `echo git push` first, ran both modes to watch the flow without publishing anything, then removed the echoes once it behaved.

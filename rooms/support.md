@@ -15,6 +15,8 @@ title: support
 
 # Support Operations Platform
 
+![[assets/support-header.png]]
+
 > Pentest the internal Support Operations Platform, chain several trust-boundary weaknesses, and escalate to Remote Code Execution on the server.
 
 **Flags**

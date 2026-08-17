@@ -12,6 +12,8 @@ platform: TryHackMe
 
 # Management Wants a Word
 
+![[assets/management-wants-a-word header.png]]
+
 ## In plain terms
 Someone left behind a triage image of a Windows machine, and the flag is hidden behind a wall of encryption. The saved Chrome password on that machine is the key to a secret encrypted vault,  but that password is itself locked behind the user's Windows login. So the whole room is a chain: crack the Windows password, use it to peel back layer after layer until you reach the Chrome-saved password, then use that password to open a hidden vault where the flag is buried inside an image, inside a PDF.
 
