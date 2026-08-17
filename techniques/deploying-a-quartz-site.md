@@ -55,24 +55,27 @@ Key concepts learned:
 ## 🧠 Insight
 The "separate repos" approach costs you a more complex Action but keeps content clean from tooling. The Action *is* the glue — everything hard lives in ~40 lines of YAML, and once it's right, the whole thing runs itself.
 
-The deploy script is the same idea one layer up: the Action automates the *build*, the script automates the *push*. Both replace a fragile manual ritual with something that runs itself but I kept a confirmation prompt in the script, because fully automating a `git push` across two repos is exactly how you publish a mistake at 2am.
+The deploy script started with a manual `--rebuild` flag, then I realized the flag was redundant: git already knows whether the repo changed. Letting the script read that state instead of asking me is the same lesson as the Action itself — the less I have to remember, the fewer 2am mistakes I make.
 
 ## Automating the deploy
 
-Two repos means two `add`/`commit`/`push` cycles every time I publish, plus remembering that a content push needs a manual engine rebuild. I wrote a bash script to collapse all of that into one command:
+Two repos means two `add`/`commit`/`push` cycles every time I publish, plus remembering that a content-only change needs the engine repo to rebuild. I wrote a bash script to collapse all of that into one command:
 
 ```bash
-./deploy.sh "commit message"            # normal: commits real changes in both repos
-./deploy.sh "commit message" --rebuild  # quartz gets an empty commit to force a rebuild
+./deploy.sh "commit message"
 ```
 
-The script deploys the vault first (content), then the quartz repo (engine), asking for confirmation before each push so I can eyeball `git status` before anything goes up. The `--rebuild` flag switches the quartz side to an empty commit — the exact trick from the gotcha above, now automated.
+The script deploys the vault first (content), then the quartz repo (engine), asking for confirmation before each push so I can eyeball `git status` first.
+
+The clever bit is that it **detects automatically** whether the quartz repo needs an empty commit. After staging, it runs `git diff --cached --quiet`:
+- if there are real changes (I edited config, CSS, or the boot page) → a normal commit
+- if the repo is clean (I only touched content in the vault) → an **empty commit**, which is what forces the Action to rebuild the site
+
+So I never have to remember which case I'm in — the git state already knows, and the script reads it.
 
 Design decisions worth noting:
-- **Guard clause first** — bails out immediately if no commit message is passed, so nothing half-runs.
-- **A `--rebuild` boolean** captured once at the top, used later — separates *deciding* from *acting*.
-- **`commit_if_changes`** — checks `git diff --quiet` before committing so an empty "nothing to commit" doesn't abort the run; only pushes if a commit actually happened. The `--rebuild` branch deliberately skips this, since an empty commit is the whole point there.
+- **Guard clause first** — bails out immediately if no commit message is passed.
+- **`git diff --cached --quiet`** — returns success when *nothing* is staged, so the "clean" branch is the one that fires on success (counter-intuitive but that's how git's check commands work).
 - **Confirmation prompts** — `git status` + a `read` before each push. The trade-off for automation is losing the "inventory before touching" ritual, so the prompt puts it back.
-- **`cd ... || { echo; exit; }`** — if a repo folder is missing, it says so and stops instead of running git in the wrong place.
 
-Testing discipline: I swapped every `git push` for `echo git push` first, ran both modes to watch the flow without publishing anything, then removed the echoes once it behaved.
+Testing discipline: I swapped every `git push` for `echo git push` first, ran it to watch the flow without publishing, then removed the echoes.
