@@ -1,3 +1,11 @@
+---
+title: Impact Printers - CompTIA A+ 220-1201 - 3.8
+tags:
+  - comptiaA+
+  - core1
+---
+
+
 # Impact Printers
 
 ## Overview

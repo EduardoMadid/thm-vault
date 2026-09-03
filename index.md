@@ -1,5 +1,7 @@
 ---
 title: THM Vault
+tag:
+  - page
 ---
 <style>html{display:none}</style>
 <meta http-equiv="refresh" content="0; url=/cyber-notes/static/boot/">

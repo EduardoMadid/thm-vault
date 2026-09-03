@@ -1,5 +1,7 @@
 ---
 title: about
+tag:
+  - page
 ---
 
 # whoami

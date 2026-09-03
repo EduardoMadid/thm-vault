@@ -39,3 +39,4 @@ Impact printers work by striking pins against a ribbon and pressing it into the 
 - Paper must feed without constraint
     - Check that nothing blocks the path in or out of the printer
     - A stack that catches on something causes misalignment or a jam
+
