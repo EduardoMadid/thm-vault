@@ -1,5 +1,5 @@
 ---
-title: # Virtualization Concepts - CompTIA A+ 220-1201 - 4.1
+title: Virtualization Concepts - CompTIA A+ 220-1201 - 4.1
 tags:
   - comptiaA+
   - core1

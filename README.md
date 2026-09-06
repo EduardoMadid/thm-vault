@@ -1,6 +1,6 @@
 ---
 title: vault of knowledge
-tag:
+tags:
   - page
 ---
 

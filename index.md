@@ -1,6 +1,6 @@
 ---
 title: THM Vault
-tag:
+tags:
   - page
 ---
 <style>html{display:none}</style>
